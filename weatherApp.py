@@ -5,8 +5,10 @@ load_dotenv()
 api_key = os.getenv('api_key')
 session = requests.session()
 
-def fetchData(cityName: str, countryCode: str) -> str:
+def fetchData():
     results = []
+    cityName = input("Please enter the city name: ")
+    countryCode = input("Please enter the country code (example: de, au, ja): ")
     try:
         response = session.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cityName},{countryCode}&appid={api_key}")
         if response.status_code == 200:
@@ -25,11 +27,18 @@ def fetchData(cityName: str, countryCode: str) -> str:
     except requests.RequestException as e:
         print(e)
 
-    temp = data["main"]["temp"]
-    return temp
+    return data,cityName
 
-cityName = input("Please enter the city name: ")
-countryCode = input("Please enter the country code (example: de, au, ja): ")
+def asciiMenu(data, cityName):
+    print(f"""
++----------+---------------------+------------------+------------------+----------+
+| Location | Current temperature | Min. temperature | Max. temperature | Humidity |
++----------+---------------------+------------------+------------------+----------+
+| {cityName:<14}   |               {data["main"]["temp"]:>19} |            {data["main"]["temp_min"]:>16} |            {data["main"]["temp_max"]:>16} |       {data["main"]["humidity"]:>8} |
++----------+---------------------+------------------+------------------+----------+
 
-temp = fetchData(cityName, countryCode)
-print(temp)
+""")
+
+while True:
+    data, cityName = fetchData()
+    asciiMenu(data, cityName)

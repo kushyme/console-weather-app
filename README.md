@@ -1,2 +1,73 @@
-First little console app to learn how to work with apis.
-Using this free api: https://openweathermap.org/
+# Weather Console App
+
+A simple Python console application that fetches and displays current weather data for any city using the [OpenWeatherMap API](https://openweathermap.org/).
+
+## Features
+
+- Fetches real-time weather data for any city worldwide
+- Displays weather information in a clean ASCII table format
+- Shows current temperature, min/max temperatures, and humidity
+- Simple command-line interface
+
+## Prerequisites
+
+- Python 3.x
+- OpenWeatherMap API key (free registration required at [openweathermap.org](https://openweathermap.org/api))
+
+## Installation
+
+1. **Install required dependencies:**
+   ```bash
+   python3 -m pip install --user requests python-dotenv terminaltables3
+   ```
+
+2. **Set up your API key:**
+   Create a `.env` file in the same directory as the script and add your OpenWeatherMap API key:
+   ```
+   api_key="your_actual_api_key_here"
+   ```
+
+3. **(Optional) Make it globally accessible:**
+   To run the app from anywhere on your system:
+   ```bash
+   chmod +x weatherApp.py
+   cp weatherApp.py ~/.local/bin/weather
+   ```
+
+## Usage
+
+Run the application with the following command:
+```bash
+weather <cityName> <countryCode>
+```
+
+### Examples
+```bash
+weather Berlin de
+weather London gb
+weather "New York" us
+weather Tokyo jp
+```
+
+**Note:** Use quotes around city names that contain spaces.
+
+## Output
+
+The application displays weather data in a formatted table showing:
+- Location name
+- Current temperature (°C)
+- Minimum temperature (°C)
+- Maximum temperature (°C)
+- Humidity (%)
+
+## Troubleshooting
+
+- **Invalid API key:** Make sure your `.env` file contains a valid OpenWeatherMap API key
+- **City not found:** Check the spelling of the city name and ensure you're using the correct country code
+- **Permission denied:** If the global installation fails, make sure `~/.local/bin` is in your PATH
+
+## Country Codes
+
+Use ISO 3166-1 alpha-2 country codes (e.g., `us` for United States, `de` for Germany, `gb` for United Kingdom).
+
+README file created using AI

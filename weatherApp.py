@@ -1,15 +1,15 @@
+#!/usr/bin/env python3
 import requests
 import os
 from dotenv import load_dotenv
 from terminaltables3 import AsciiTable
+import sys
 load_dotenv()
 api_key = os.getenv('api_key')
 session = requests.session()
 
-def fetchData():
+def fetchData(cityName, countryCode):
     results = []
-    cityName = input("Please enter the city name: ")
-    countryCode = input("Please enter the country code (example: de, au, ja): ")
     try:
         response = session.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cityName},{countryCode}&appid={api_key}")
         if response.status_code == 200:
@@ -38,6 +38,11 @@ def asciiMenu(data, cityName):
     table = AsciiTable(table_data)
     print(table.table)
 
-while True:
-    data, cityName = fetchData()
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("The right command is: weather <cityName> <countryCode>")
+        sys.exit(1)
+    cityName = sys.argv[1]
+    countryCode = sys.argv[2]
+    data, cityName = fetchData(cityName, countryCode)
     asciiMenu(data, cityName)

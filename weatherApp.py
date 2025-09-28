@@ -1,6 +1,7 @@
 import requests
 import os
 from dotenv import load_dotenv
+from terminaltables3 import AsciiTable
 load_dotenv()
 api_key = os.getenv('api_key')
 session = requests.session()
@@ -30,14 +31,12 @@ def fetchData():
     return data,cityName
 
 def asciiMenu(data, cityName):
-    print(f"""
-+----------+---------------------+------------------+------------------+----------+
-| Location | Current temperature | Min. temperature | Max. temperature | Humidity |
-+----------+---------------------+------------------+------------------+----------+
-| {cityName:<14}   |               {data["main"]["temp"]:>19} |            {data["main"]["temp_min"]:>16} |            {data["main"]["temp_max"]:>16} |       {data["main"]["humidity"]:>8} |
-+----------+---------------------+------------------+------------------+----------+
-
-""")
+    table_data = [
+        ["Location", "Current temperature", "Min. temperature", "Max. temperature", "Humidity"],
+        [cityName, data["main"]["temp"], data["main"]["temp_min"], data["main"]["temp_max"], data["main"]["humidity"]]
+    ]
+    table = AsciiTable(table_data)
+    print(table.table)
 
 while True:
     data, cityName = fetchData()

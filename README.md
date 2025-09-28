@@ -16,9 +16,24 @@ A simple Python console application that fetches and displays current weather da
 
 ## Installation
 
-1. **Install required dependencies:**
+1. **Create and activate a virtual environment:**
    ```bash
-   python3 -m pip install --user requests python-dotenv terminaltables3
+   # Navigate to the project directory
+   cd weather-console-app
+   
+   # Create virtual environment
+   python3 -m venv .venv
+   
+   # Activate it (Linux/macOS)
+   source .venv/bin/activate
+   
+   # On Windows, use:
+   # .venv\Scripts\activate
+   ```
+
+2. **Install required dependencies:**
+   ```bash
+   pip install requests python-dotenv terminaltables3
    ```
 
 2. **Set up your API key:**
@@ -70,4 +85,6 @@ The application displays weather data in a formatted table showing:
 
 Use ISO 3166-1 alpha-2 country codes (e.g., `us` for United States, `de` for Germany, `gb` for United Kingdom).
 
-README file created using AI
+## License
+
+This project is for educational purposes.

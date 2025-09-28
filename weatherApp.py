@@ -21,12 +21,11 @@ lonValue = results[0]["lon"]
 
 data = []
 try:
-    response2 = session.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latValue}&lon={lonValue}&appid={api_key}")
+    response2 = session.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latValue}&lon={lonValue}&appid={api_key}&units=metric")
     if response2.status_code == 200:
         data = response2.json()
 except requests.RequestException as e:
     print(e)
 
-print(data)
-# tempKelvin = data[2]["temp"] not working yet
-#print(tempKelvin)
+temp = data["main"]["temp"]
+print(temp, "°C")

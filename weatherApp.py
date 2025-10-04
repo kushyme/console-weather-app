@@ -6,8 +6,12 @@ from terminaltables3 import AsciiTable
 import sys
 load_dotenv()
 api_key = os.getenv('api_key')
-session = requests.session()
+if not api_key:
+    print("no apikey found")
+    sys.exit(1)
 
+
+session = requests.session()
 def fetchData(cityName, countryCode):
     results = []
     try:
@@ -26,7 +30,7 @@ def fetchData(cityName, countryCode):
         if response2.status_code == 200:
             data = response2.json()
     except requests.RequestException as e:
-        print(e)
+        print(e)    
 
     return data,cityName
 
@@ -46,3 +50,6 @@ if __name__ == "__main__":
     countryCode = sys.argv[2]
     data, cityName = fetchData(cityName, countryCode)
     asciiMenu(data, cityName)
+
+
+

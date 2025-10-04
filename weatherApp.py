@@ -10,16 +10,19 @@ if not api_key:
     print("no apikey found")
     sys.exit(1)
 
-
 session = requests.session()
+
 def fetchData(cityName, countryCode):
     results = []
     try:
         response = session.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cityName},{countryCode}&appid={api_key}")
         if response.status_code == 200:
             results = response.json()
+        elif not results:
+            print(f"No results found for {cityName}, {countryCode}. Check the spelling or the country code")
     except requests.RequestException as e:
-        print(e)
+        print(f"Network error: {e}")
+        sys.exit(1)
 
     latValue = results[0]["lat"]
     lonValue = results[0]["lon"]
@@ -30,7 +33,7 @@ def fetchData(cityName, countryCode):
         if response2.status_code == 200:
             data = response2.json()
     except requests.RequestException as e:
-        print(e)    
+        print(f"Network error: {e}")
 
     return data,cityName
 
@@ -50,6 +53,4 @@ if __name__ == "__main__":
     countryCode = sys.argv[2]
     data, cityName = fetchData(cityName, countryCode)
     asciiMenu(data, cityName)
-
-
 

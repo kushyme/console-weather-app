@@ -39,8 +39,8 @@ def fetchData(cityName, countryCode):
 
 def asciiMenu(data, cityName):
     table_data = [
-        ["Location", "Current temperature", "Min. temperature", "Max. temperature", "Humidity"],
-        [cityName, data["main"]["temp"], data["main"]["temp_min"], data["main"]["temp_max"], data["main"]["humidity"]]
+        ["Location", "Current temperature", "Min. temperature", "Max. temperature", "Humidity", "Description"],
+        [cityName, data["main"]["temp"], data["main"]["temp_min"], data["main"]["temp_max"], data["main"]["humidity"], data["weather"]["description"]]
     ]
     table = AsciiTable(table_data)
     print(table.table)

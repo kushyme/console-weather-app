@@ -4,8 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "weather-console-app"
+version = "1.0.0"
+readme = "README.md"
+description = "A small weather console app to get weather information about any city"
 dependencies = [
     "requests>=2.32.0",
     "python-dotenv>=1.0.0",
     "terminaltables3>=3.0.0"
 ]
+

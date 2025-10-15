@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 from terminaltables3 import AsciiTable
 import sys
+import * from fetchData
 load_dotenv()
 api_key = os.getenv('api_key')
 if not api_key:
@@ -11,31 +12,6 @@ if not api_key:
     sys.exit(1)
 
 session = requests.session()
-
-def fetchData(cityName, countryCode):
-    results = []
-    try:
-        response = session.get(f"http://api.openweathermap.org/geo/1.0/direct?q={cityName},{countryCode}&appid={api_key}")
-        if response.status_code == 200:
-            results = response.json()
-        elif not results:
-            print(f"No results found for {cityName}, {countryCode}. Check the spelling or the country code")
-    except requests.RequestException as e:
-        print(f"Network error: {e}")
-        sys.exit(1)
-
-    latValue = results[0]["lat"]
-    lonValue = results[0]["lon"]
-
-    data = []
-    try:
-        response2 = session.get(f"https://api.openweathermap.org/data/2.5/weather?lat={latValue}&lon={lonValue}&appid={api_key}&units=metric")
-        if response2.status_code == 200:
-            data = response2.json()
-    except requests.RequestException as e:
-        print(f"Network error: {e}")
-
-    return data,cityName
 
 def asciiMenu(data, cityName):
     table_data = [
@@ -51,5 +27,6 @@ if __name__ == "__main__":
         sys.exit(1)
     cityName = sys.argv[1]
     countryCode = sys.argv[2]
-    data, cityName = fetchData(cityName, countryCode)
+    latValue, lonValue = fetchLongitudeAndLatitude(cityName, countryCode)
+    data = fetchWeatherData(latValue, lonValue)
     asciiMenu(data, cityName)

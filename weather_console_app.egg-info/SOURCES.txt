@@ -1,0 +1,9 @@
+README.md
+pyproject.toml
+weatherApp.py
+weather_console_app.egg-info/PKG-INFO
+weather_console_app.egg-info/SOURCES.txt
+weather_console_app.egg-info/dependency_links.txt
+weather_console_app.egg-info/entry_points.txt
+weather_console_app.egg-info/requires.txt
+weather_console_app.egg-info/top_level.txt

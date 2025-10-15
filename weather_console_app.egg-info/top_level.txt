@@ -1,2 +1,0 @@
-fetchData
-weatherApp

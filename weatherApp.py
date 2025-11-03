@@ -38,7 +38,7 @@ def asciiMenu(data, cityName):
     print(table.table)
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2: # might have to be a 3
+    if len(sys.argv) != 3:
         print("The right command is: weather <cityName> <countryCode>")
         sys.exit(1)
 
@@ -48,8 +48,8 @@ if __name__ == "__main__":
     try:
         api_key = getApiKey()
         session = requests.session()
-        latitude, logitude = fetchCoordinates(cityName, countryCode) # TODO: add runtime error
-        data = fetchWeatherData(latitude, logitude) # TODO: add runtime error
+        latitude, longitude = fetchCoordinates(cityName, countryCode)
+        data = fetchWeatherData(latitude, longitude)
     except RuntimeError as e:
         print(e)
         sys.exit(1)
